@@ -126,6 +126,8 @@ npm run build
 
 ## Cómo opero yo (Claude) este proyecto
 
+0. **REGLA DE RAMAS — LUIS LA HIZO EXPLÍCITA:** trabajamos SIEMPRE en `main`. NO crear ramas, NO crear PRs, NO hacer merges desde feature branches. Esto es un frontend personal de un solo desarrollador — la ceremonia de Git le quita tiempo y le frustra. Si yo (Claude) creo una rama sin que Luis me la pida explícitamente, está mal hecho. Commit directo a main, push, listo.
+
 1. **Antes de tocar nada:** leo este archivo + el `README.md` + recientes commits para entender en qué estamos.
 2. **Cambios pequeños:** los hago directo, los pruebo con `npx next build`, y commiteo.
 3. **Cambios grandes o de identidad visual:** pregunto a Luis primero. La estética NO se cambia sin permiso.
