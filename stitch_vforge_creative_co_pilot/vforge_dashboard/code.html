@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>vForge Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600&amp;family=Geist:wght@600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "primary": "#d0bcff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#131313",
+                        "on-primary": "#3c0091",
+                        "surface-tint": "#d0bcff",
+                        "error-container": "#93000a",
+                        "primary-container": "#a078ff",
+                        "outline-variant": "#494454",
+                        "on-error-container": "#ffdad6",
+                        "electric-blue": "#3B82F6",
+                        "tertiary-fixed": "#dfed1a",
+                        "outline": "#958ea0",
+                        "on-tertiary-container": "#292c00",
+                        "error-crimson": "#EF4444",
+                        "cyber-cyan": "#22D3EE",
+                        "secondary-fixed-dim": "#a7caf3",
+                        "inverse-on-surface": "#313030",
+                        "on-primary-container": "#340080",
+                        "inverse-primary": "#6d3bd7",
+                        "surface-dim": "#131313",
+                        "surface-variant": "#353534",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-container": "#99bbe4",
+                        "on-secondary": "#063254",
+                        "inverse-surface": "#e5e2e1",
+                        "primary-fixed-dim": "#d0bcff",
+                        "surface-container-low": "#1c1b1b",
+                        "primary-fixed": "#e9ddff",
+                        "on-tertiary-fixed": "#1b1d00",
+                        "on-secondary-fixed-variant": "#25496c",
+                        "surface-container": "#201f1f",
+                        "success-emerald": "#10B981",
+                        "on-surface-variant": "#cbc3d7",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary-fixed": "#001d35",
+                        "surface-container-high": "#2a2a2a",
+                        "surface": "#131313",
+                        "tertiary-container": "#8e9800",
+                        "tertiary-fixed-dim": "#c3d000",
+                        "off-white": "#F8FAFC",
+                        "secondary-container": "#274b6e",
+                        "surface-bright": "#3a3939",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed-variant": "#454a00",
+                        "on-primary-fixed": "#23005c",
+                        "charcoal-surface": "#121212",
+                        "secondary-fixed": "#d0e4ff",
+                        "tertiary": "#c3d000",
+                        "on-primary-fixed-variant": "#5516be",
+                        "surface-container-highest": "#353534",
+                        "on-tertiary": "#2f3300",
+                        "secondary": "#a7caf3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Hanken Grotesk"],
+                        "headline-lg": ["Geist"],
+                        "headline-lg-mobile": ["Geist"],
+                        "headline-xl": ["Geist"],
+                        "code-block": ["JetBrains Mono"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-caps": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "300"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "code-block": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "300"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #050505;
+            color: #e5e2e1;
+        }
+        .v-watermark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            font-size: 400px;
+            font-family: 'Geist';
+            line-height: 1;
+            z-index: 0;
+        }
+        .thin-border {
+            border: 1px solid #262626;
+        }
+        .inner-glow:focus-within {
+            box-shadow: inset 0 0 10px rgba(34, 211, 238, 0.05);
+            border-color: #22D3EE;
+        }
+        .canvas-grid {
+            background-image: radial-gradient(#262626 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-hidden h-screen flex">
+<!-- Sidebar Navigation -->
+<aside class="w-64 h-full bg-charcoal-surface thin-border flex flex-col z-10">
+<div class="p-6 flex items-center space-x-3">
+<div class="w-8 h-8 bg-gradient-to-br from-electric-blue to-primary flex items-center justify-center rounded">
+<span class="text-white font-headline-lg text-lg">V</span>
+</div>
+<span class="font-headline-lg text-xl tracking-tighter">vForge</span>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<div class="text-label-caps font-label-caps text-on-surface-variant mb-4 px-2">Workspace</div>
+<button class="w-full flex items-center space-x-3 p-2 rounded bg-surface-container text-cyber-cyan">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-body-md">Command Center</span>
+</button>
+<button class="w-full flex items-center space-x-3 p-2 rounded hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">folder_open</span>
+<span class="font-body-md">Projects</span>
+</button>
+<button class="w-full flex items-center space-x-3 p-2 rounded hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span class="font-body-md">Forge AI</span>
+</button>
+<div class="pt-8 text-label-caps font-label-caps text-on-surface-variant mb-4 px-2">Projects</div>
+<div class="space-y-1">
+<a class="flex items-center justify-between group p-2 rounded hover:bg-surface-container-high transition-colors" href="#">
+<span class="flex items-center space-x-3">
+<span class="w-2 h-2 rounded-full bg-success-emerald"></span>
+<span class="font-body-md">Titan Core</span>
+</span>
+<span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100">more_horiz</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded hover:bg-surface-container-high transition-colors" href="#">
+<span class="flex items-center space-x-3">
+<span class="w-2 h-2 rounded-full bg-success-emerald"></span>
+<span class="font-body-md">Ether Flux</span>
+</span>
+<span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100">more_horiz</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded hover:bg-surface-container-high transition-colors" href="#">
+<span class="flex items-center space-x-3">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-body-md">Nebula API</span>
+</span>
+<span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100">more_horiz</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-outline-variant/30">
+<button class="w-full flex items-center space-x-3 p-2 rounded hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-body-md">Settings</span>
+</button>
+<div class="mt-4 flex items-center space-x-3 p-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a software architect in a minimalist dark studio setting. The lighting is dramatic and moody, highlighting sharp features and a confident expression. The overall aesthetic is clean, sophisticated, and tech-focused, using high-contrast blacks and soft highlights to match a high-end dashboard interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIes87v0pllCXHDyttW0QREvRnVarSuUrkQbcqpkHnSR3JePDHeHr-j7ejWx9nAz85Dca-x0lM1qFFsW95x7HvPKajKgi7XwUc2VfYgTCdFMGDUTZ3J3Thnkm8dZHpN_ntdHsFqSouyqx-DOzCi61FQclNGyzYI9AOLIJGqGmAVGAfk-YNEE0BsUwn0CzLMx4L88pXve443NHQmvF9u3XtPWZqxOu1PYiAhS3yltW-hcLUA7dI6KmNqASzfSuQF-3DO2ZrRbX4AIA"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-semibold">Alex Vance</span>
+<span class="text-[10px] text-on-surface-variant">Pro Architect</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col relative">
+<div class="v-watermark">V</div>
+<!-- Header -->
+<header class="h-16 flex items-center justify-between px-8 bg-background/80 backdrop-blur-xl sticky top-0 z-20 border-b border-outline-variant/10">
+<div class="flex items-center space-x-4">
+<span class="text-on-surface-variant font-body-sm">Projects</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">chevron_right</span>
+<span class="font-semibold text-on-surface">Titan Core</span>
+<span class="px-2 py-0.5 rounded bg-success-emerald/10 text-success-emerald font-label-caps text-[10px]">OPERATIONAL</span>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<span class="material-symbols-outlined p-2 text-on-surface-variant hover:text-on-surface cursor-pointer">notifications</span>
+<span class="absolute top-2 right-2 w-1.5 h-1.5 bg-electric-blue rounded-full"></span>
+</div>
+<button class="bg-off-white text-background px-4 py-1.5 rounded font-label-caps text-[12px] font-bold hover:bg-cyber-cyan transition-all">
+                    DEPLOY PROJECT
+                </button>
+</div>
+</header>
+<!-- Command Center Layout -->
+<div class="flex-1 flex p-6 gap-6 overflow-hidden">
+<!-- Left Side: Canvas & Core Metrics -->
+<div class="flex-1 flex flex-col gap-6">
+<!-- Canvas Area -->
+<section class="flex-1 bg-charcoal-surface thin-border rounded-xl relative overflow-hidden group">
+<div class="absolute inset-0 canvas-grid opacity-20"></div>
+<div class="absolute top-4 left-4 flex items-center space-x-2 bg-background/50 backdrop-blur-md px-3 py-1.5 rounded-lg thin-border">
+<span class="material-symbols-outlined text-[18px] text-cyber-cyan">edit_square</span>
+<span class="font-label-caps text-[11px]">CANVAS VIEW</span>
+</div>
+<div class="h-full w-full flex items-center justify-center p-12">
+<div class="w-full max-w-2xl aspect-video bg-surface-container rounded-lg thin-border relative overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover opacity-60" data-alt="A highly detailed close-up of a complex circuit board with glowing neon cyan pathways and purple light pulses. The atmosphere is cinematic and high-tech, evoking the feeling of a powerful AI processing core. The depth of field is shallow, focusing on the intricate textures of the hardware against a deep black background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCucAQAvzCFT7SZKCD8EkodacCwrdjgEM8kWvxkOjJK6hRQR1oI06couf5gNGijtcqh2gWJLu14WhWJoBXks18QDhDrQELbX2TeH61dajWchztuJaKQzs5EgwEcSdRCNLxXohAoXZ1k5FbzSHBudA_pzH15nEEOZ0BaPEcNMZxZmskv10gXyVSfSMi4PDKywkwyIlRug0CkMVUwyCDKFCc0Day4r1jdfkgQ_0PE9K2POVnfyFDbjP1mvCxJaHFbyADqwbfNwc3n1DE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6">
+<h3 class="font-headline-lg text-2xl text-off-white">Architecture Visualizer</h3>
+<p class="text-on-surface-variant font-body-sm">Real-time node distribution for Titan Core</p>
+</div>
+</div>
+</div>
+<div class="absolute bottom-4 right-4 flex space-x-2">
+<button class="p-2 bg-background rounded-lg thin-border hover:border-cyber-cyan transition-colors">
+<span class="material-symbols-outlined text-[20px]">zoom_in</span>
+</button>
+<button class="p-2 bg-background rounded-lg thin-border hover:border-cyber-cyan transition-colors">
+<span class="material-symbols-outlined text-[20px]">layers</span>
+</button>
+<button class="p-2 bg-background rounded-lg thin-border hover:border-cyber-cyan transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+</div>
+</section>
+<!-- Status Bento Grid -->
+<div class="grid grid-cols-3 gap-6">
+<div class="bg-charcoal-surface thin-border p-5 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-on-surface-variant">CPU LOAD</span>
+<span class="material-symbols-outlined text-success-emerald text-[20px]">trending_down</span>
+</div>
+<div class="mt-4">
+<div class="text-2xl font-headline-lg">12.4%</div>
+<div class="w-full bg-surface-container h-1 rounded-full mt-2">
+<div class="bg-success-emerald h-full w-[12%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="bg-charcoal-surface thin-border p-5 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-on-surface-variant">LATENCY</span>
+<span class="material-symbols-outlined text-cyber-cyan text-[20px]">pulse_alert</span>
+</div>
+<div class="mt-4">
+<div class="text-2xl font-headline-lg">14ms</div>
+<div class="flex space-x-1 mt-2 h-4 items-end">
+<div class="w-1 bg-cyber-cyan h-2"></div>
+<div class="w-1 bg-cyber-cyan h-3"></div>
+<div class="w-1 bg-cyber-cyan h-2"></div>
+<div class="w-1 bg-cyber-cyan h-4"></div>
+<div class="w-1 bg-cyber-cyan h-3"></div>
+<div class="w-1 bg-cyber-cyan h-2"></div>
+</div>
+</div>
+</div>
+<div class="bg-charcoal-surface thin-border p-5 rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-on-surface-variant">ACTIVE NODES</span>
+<span class="material-symbols-outlined text-primary text-[20px]">hub</span>
+</div>
+<div class="mt-4 text-2xl font-headline-lg">1,024</div>
+<div class="text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">+12 in last hour</div>
+</div>
+</div>
+</div>
+<!-- Right Side: AI Co-pilot Interface -->
+<div class="w-96 flex flex-col bg-charcoal-surface thin-border rounded-xl overflow-hidden">
+<div class="p-4 border-b border-outline-variant/30 bg-surface-container/50 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary" data-weight="fill">smart_toy</span>
+<span class="font-label-caps">FORGE CO-PILOT</span>
+</div>
+<span class="w-2 h-2 rounded-full bg-success-emerald animate-pulse"></span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-6">
+<!-- AI Message -->
+<div class="flex flex-col space-y-2">
+<div class="flex items-center space-x-2">
+<span class="text-[10px] font-label-caps text-primary">FORGE AI</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-high border border-primary/20 text-body-sm leading-relaxed">
+                            Titan Core optimization complete. I've adjusted the load balancing across the primary shard. Would you like to review the new routing table?
+                        </div>
+</div>
+<!-- User Message -->
+<div class="flex flex-col space-y-2 items-end">
+<div class="flex items-center space-x-2">
+<span class="text-[10px] font-label-caps text-on-surface-variant">YOU</span>
+</div>
+<div class="p-3 rounded-lg bg-background thin-border text-body-sm text-right">
+                            Yes, show me the latency delta for the Asia-Pacific region.
+                        </div>
+</div>
+<!-- AI Code Block Response -->
+<div class="flex flex-col space-y-2">
+<div class="flex items-center space-x-2">
+<span class="text-[10px] font-label-caps text-primary">FORGE AI</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest border border-outline-variant/30 font-code-block text-code-block text-cyber-cyan">
+<pre><code>{
+  "region": "ap-southeast-1",
+  "delta": "-4.2ms",
+  "status": "optimized"
+}</code></pre>
+</div>
+</div>
+</div>
+<!-- Chat Input -->
+<div class="p-4 border-t border-outline-variant/30">
+<div class="relative inner-glow rounded-lg thin-border bg-background transition-all">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-body-sm py-3 px-4 resize-none pr-12 placeholder-on-surface-variant/50" placeholder="Ask anything..." rows="1"></textarea>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-cyber-cyan hover:bg-cyber-cyan/10 rounded transition-colors">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<div class="mt-2 flex justify-between items-center px-1">
+<span class="text-[10px] text-on-surface-variant font-label-caps">CMD + K TO SEARCH</span>
+<div class="flex space-x-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant cursor-pointer hover:text-on-surface">mic</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant cursor-pointer hover:text-on-surface">attach_file</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

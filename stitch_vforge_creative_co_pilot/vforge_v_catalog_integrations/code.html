@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>V-Catalog | vForge</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom scrollbar for terminal area */
+        .terminal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .terminal-scroll::-webkit-scrollbar-track {
+            background: #0e0e0e; 
+        }
+        .terminal-scroll::-webkit-scrollbar-thumb {
+            background: #353534; 
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#e9ddff",
+                        "secondary": "#a7caf3",
+                        "on-secondary-fixed-variant": "#25496c",
+                        "inverse-surface": "#e5e2e1",
+                        "primary-fixed-dim": "#d0bcff",
+                        "on-tertiary-container": "#292c00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-highest": "#353534",
+                        "background": "#131313",
+                        "secondary-fixed": "#d0e4ff",
+                        "inverse-on-surface": "#313030",
+                        "charcoal-surface": "#121212",
+                        "primary-container": "#a078ff",
+                        "outline": "#958ea0",
+                        "surface-container-high": "#2a2a2a",
+                        "on-secondary-container": "#99bbe4",
+                        "tertiary-fixed": "#dfed1a",
+                        "on-primary": "#3c0091",
+                        "inverse-primary": "#6d3bd7",
+                        "surface-dim": "#131313",
+                        "on-secondary": "#063254",
+                        "on-tertiary-fixed": "#1b1d00",
+                        "surface-tint": "#d0bcff",
+                        "on-surface": "#e5e2e1",
+                        "on-primary-fixed": "#23005c",
+                        "outline-variant": "#494454",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#131313",
+                        "on-primary-container": "#340080",
+                        "on-tertiary": "#2f3300",
+                        "electric-blue": "#3B82F6",
+                        "on-secondary-fixed": "#001d35",
+                        "surface-container": "#201f1f",
+                        "success-emerald": "#10B981",
+                        "on-tertiary-fixed-variant": "#454a00",
+                        "on-error": "#690005",
+                        "error-crimson": "#EF4444",
+                        "on-background": "#e5e2e1",
+                        "off-white": "#F8FAFC",
+                        "tertiary-fixed-dim": "#c3d000",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-variant": "#353534",
+                        "tertiary": "#c3d000",
+                        "error-container": "#93000a",
+                        "primary": "#d0bcff",
+                        "secondary-container": "#274b6e",
+                        "cyber-cyan": "#22D3EE",
+                        "on-surface-variant": "#cbc3d7",
+                        "surface-bright": "#3a3939",
+                        "secondary-fixed-dim": "#a7caf3",
+                        "tertiary-container": "#8e9800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Geist"],
+                        "code-block": ["JetBrains Mono"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "headline-xl": ["Geist"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "code-block": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "300" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "300" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased selection:bg-cyber-cyan/30 selection:text-cyber-cyan">
+<!-- TopNavBar Shared Component -->
+<nav class="bg-background/80 backdrop-blur-xl docked full-width top-0 sticky z-50 border-b border-outline-variant/30 flat no shadows">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<!-- Brand Logo -->
+<div class="font-headline-lg text-headline-lg font-bold tracking-tighter text-on-background flex items-center gap-2 cursor-pointer">
+<span class="text-cyber-cyan font-bold">V</span>
+<span>vForge</span>
+</div>
+<!-- Navigation Links (Web) -->
+<div class="hidden md:flex items-center gap-8">
+<!-- Active Item -->
+<a class="text-cyber-cyan font-semibold border-b-2 border-cyber-cyan pb-1 hover:text-cyber-cyan transition-all duration-300" href="#">Product</a>
+<!-- Inactive Items -->
+<a class="text-on-surface-variant font-body-md hover:text-on-surface transition-colors hover:text-cyber-cyan duration-300" href="#">Pricing</a>
+<a class="text-on-surface-variant font-body-md hover:text-on-surface transition-colors hover:text-cyber-cyan duration-300" href="#">Docs</a>
+</div>
+<!-- Trailing Action -->
+<button class="hidden md:flex bg-gradient-to-r from-electric-blue to-primary-container text-off-white px-6 py-2 rounded font-body-md text-body-md font-medium hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-cyber-cyan focus:ring-offset-2 focus:ring-offset-background active:scale-95 transition-transform duration-150">
+                Get Started
+            </button>
+<!-- Mobile Menu Icon -->
+<button class="md:hidden text-on-surface hover:text-cyber-cyan transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24 space-y-32">
+<!-- Hero & Search Section -->
+<section class="flex flex-col items-center text-center space-y-8 relative z-10">
+<!-- Decorative background glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-64 bg-primary-container/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+<h1 class="font-headline-xl text-headline-xl text-on-background max-w-3xl leading-tight">
+                V-Catalog: <br class="md:hidden"/><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-primary-container">Integration Marketplace</span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+                A hyper-minimalist grid of drag-and-drop modules. Connect core infrastructure silently and securely. Absolute precision for data architects.
+            </p>
+<!-- Minimalist Search Input -->
+<div class="w-full max-w-2xl mt-8 relative group">
+<span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-cyber-cyan transition-colors" data-icon="search">search</span>
+<input class="w-full bg-transparent border-0 border-b border-surface-variant text-on-background font-body-md text-body-md py-4 pl-10 pr-4 focus:ring-0 focus:border-transparent outline-none placeholder:text-on-surface-variant/50 transition-all peer" placeholder="Search components, APIs, or providers..." type="text"/>
+<!-- Custom Focus Border Gradient Trick -->
+<div class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-cyber-cyan to-primary-container scale-x-0 peer-focus:scale-x-100 transition-transform duration-300 origin-left"></div>
+</div>
+</section>
+<!-- Bento Grid Modules -->
+<section class="space-y-12">
+<div class="flex items-center justify-between border-b border-surface-variant/50 pb-4">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">Core Modules</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Select to configure</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Authentication (Clerk) - Large Module -->
+<div class="col-span-1 md:col-span-8 bg-charcoal-surface rounded-DEFAULT border border-surface-variant hover:border-cyber-cyan transition-colors duration-300 group relative overflow-hidden flex flex-col justify-between min-h-[320px] p-8 cursor-pointer">
+<!-- Subtle V Watermark -->
+<div class="absolute -bottom-12 -right-12 text-[240px] leading-none font-bold text-surface-container-lowest/30 pointer-events-none font-headline-xl">V</div>
+<div class="flex justify-between items-start relative z-10">
+<div class="flex items-center gap-3">
+<div class="p-3 bg-surface-container-highest rounded-lg text-on-surface group-hover:text-cyber-cyan transition-colors">
+<span class="material-symbols-outlined" data-icon="lock" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background">Auth Protocol</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Provider: Clerk</p>
+</div>
+</div>
+<span class="bg-success-emerald/10 text-success-emerald font-code-block text-code-block px-3 py-1 rounded text-xs border border-success-emerald/20">Active</span>
+</div>
+<div class="relative z-10 mt-12">
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-6">
+                            Zero-trust identity management. Seamlessly drop-in multi-tenant architecture with biometric fallback and hardware token support.
+                        </p>
+<div class="flex items-center gap-4 text-cyber-cyan font-label-caps text-label-caps group-hover:translate-x-2 transition-transform duration-300">
+<span>CONFIGURE MODULE</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Database (Neon) - Small Module -->
+<div class="col-span-1 md:col-span-4 bg-charcoal-surface rounded-DEFAULT border border-surface-variant hover:border-primary-container transition-colors duration-300 group relative overflow-hidden flex flex-col p-8 cursor-pointer min-h-[320px]">
+<div class="flex items-center gap-3 mb-6 relative z-10">
+<div class="p-3 bg-surface-container-highest rounded-lg text-on-surface group-hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background">Data Node</h3>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-4 relative z-10">Provider: Neon Serverless</p>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow relative z-10">
+                        Autoscaling PostgreSQL edge clusters. Sub-millisecond cold starts with branch-based isolation.
+                    </p>
+<div class="mt-auto pt-4 border-t border-surface-variant/50 flex justify-between items-center text-on-surface-variant relative z-10">
+<span class="font-code-block text-[12px]">Latency: 12ms</span>
+<span class="material-symbols-outlined text-sm group-hover:text-primary-container transition-colors" data-icon="settings">settings</span>
+</div>
+</div>
+<!-- Payments (Stripe) - Small Module -->
+<div class="col-span-1 md:col-span-4 bg-charcoal-surface rounded-DEFAULT border border-surface-variant hover:border-electric-blue transition-colors duration-300 group relative overflow-hidden flex flex-col p-8 cursor-pointer">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-3 bg-surface-container-highest rounded-lg text-on-surface group-hover:text-electric-blue transition-colors">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background">Ledger</h3>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-4">Provider: Stripe</p>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+                        Global financial routing. Programmable payout logic and fractional ledger state management.
+                    </p>
+</div>
+<!-- Mail (Resend) - Small Module -->
+<div class="col-span-1 md:col-span-4 bg-charcoal-surface rounded-DEFAULT border border-surface-variant hover:border-cyber-cyan transition-colors duration-300 group relative overflow-hidden flex flex-col p-8 cursor-pointer">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-3 bg-surface-container-highest rounded-lg text-on-surface group-hover:text-cyber-cyan transition-colors">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background">Comms Hub</h3>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-4">Provider: Resend</p>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+                        High-deliverability transactional relays. Edge-rendered React email templates with analytic webhooks.
+                    </p>
+</div>
+<!-- AI Providers - Medium/Wide Module -->
+<div class="col-span-1 md:col-span-4 bg-charcoal-surface rounded-DEFAULT border border-surface-variant hover:border-primary-container transition-colors duration-300 group relative overflow-hidden flex flex-col p-8 cursor-pointer h-full min-h-[240px]">
+<!-- Abstract Image Background for AI to satisfy data-alt requirement -->
+<div class="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-700 bg-cover bg-center pointer-events-none mix-blend-screen" data-alt="A highly abstract, futuristic digital visualization of artificial intelligence networks. The image features deep void-like blacks contrasted with glowing, ethereal strands of electric purple and cyan light intersecting in a complex geometric web. The lighting is high-contrast and neon-soaked, evoking a sense of raw computational power and cutting-edge data architecture. The aesthetic perfectly aligns with a dark-mode, Zen Tech user interface, feeling sleek, silent, and immensely powerful." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBuNwXyTEEiQoc8CsekaKhtwk3TXt9gnJHSHDHqJz8eJEbsUvjVIMTivqkCpBmeR47LD_Ywz8ICiOU_JckEVyZzgsNheAlgcNotVb3QiYLOCxr2RPcFVQzSLTdjJ1AC2qOgaiXL8bJRvPtQcdPkF0mjq3UancN413wJWe4LEj0_fn-YysPlqvpjLpzdI_qxLCopfPqWa1tauSyWjUSHV6Re5M6tLeoHflOoWGQZFuYjKasgRvKaLdLz3Q6NRU5fzl7rHmfuVUlcIjw');">
+</div>
+<div class="flex items-center gap-3 mb-6 relative z-10">
+<div class="p-3 bg-surface-container-highest rounded-lg text-on-surface group-hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background">Neural Core</h3>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-4 relative z-10">LLM Mesh Routing</p>
+<div class="flex gap-2 mt-auto relative z-10">
+<span class="px-2 py-1 bg-surface-container-lowest border border-outline-variant/30 text-on-surface font-code-block text-xs rounded">OpenAI</span>
+<span class="px-2 py-1 bg-surface-container-lowest border border-outline-variant/30 text-on-surface font-code-block text-xs rounded">Anthropic</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Glossary (API, MCP, Terminal) -->
+<section class="pt-8">
+<div class="flex flex-col md:flex-row gap-gutter items-stretch">
+<!-- Section Header -->
+<div class="md:w-1/3 flex flex-col justify-start">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-4">Technical<br/>Glossary</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant pr-8">
+                        Reference documentation for absolute system control. Access endpoints, context protocols, and CLI references.
+                    </p>
+</div>
+<!-- Terminal Styled Glossary -->
+<div class="md:w-2/3 bg-surface-container-lowest border border-surface-variant rounded-DEFAULT shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)] overflow-hidden flex flex-col">
+<!-- Terminal Header -->
+<div class="bg-surface-container-highest/50 px-4 py-2 border-b border-surface-variant flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-outline-variant/50"></div>
+<div class="w-3 h-3 rounded-full bg-outline-variant/50"></div>
+<div class="w-3 h-3 rounded-full bg-outline-variant/50"></div>
+<span class="ml-4 font-code-block text-[10px] text-on-surface-variant uppercase tracking-wider">vforge-sys-docs</span>
+</div>
+<!-- Terminal Content -->
+<div class="p-6 font-code-block text-code-block text-on-surface-variant terminal-scroll h-[300px] overflow-y-auto space-y-6">
+<div>
+<div class="flex items-center gap-2 text-cyber-cyan mb-2">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+<span class="font-bold">DEFINE: API (Application Programming Interface)</span>
+</div>
+<p class="pl-6 text-on-background/80 text-sm leading-relaxed border-l border-surface-variant ml-[7px]">
+                                The primary interface boundary for vForge modules. Utilizes strict RESTful conventions with predictable resource-oriented URLs, returns JSON-encoded responses, and uses standard HTTP response codes. Authentication requires bearer tokens generated via the Auth Protocol module.
+                            </p>
+</div>
+<div>
+<div class="flex items-center gap-2 text-primary-container mb-2">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+<span class="font-bold">DEFINE: MCP (Model Context Protocol)</span>
+</div>
+<p class="pl-6 text-on-background/80 text-sm leading-relaxed border-l border-surface-variant ml-[7px]">
+                                An open standard enabling secure, two-way connections between data sources and AI agents. vForge implements MCP to allow the Neural Core to seamlessly ingest context from the Data Node (Neon) without compromising isolation layers or requiring custom ingestion pipelines.
+                            </p>
+</div>
+<div>
+<div class="flex items-center gap-2 text-electric-blue mb-2">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+<span class="font-bold">DEFINE: Terminal (vForge CLI)</span>
+</div>
+<p class="pl-6 text-on-background/80 text-sm leading-relaxed border-l border-surface-variant ml-[7px]">
+                                The headless control plane. A lightweight binary <code class="bg-surface-container-highest px-1 py-0.5 rounded text-cyber-cyan">vf-core</code> allowing architects to provision, wire, and tear down marketplace modules via declarative YAML configurations. Prioritizes silent execution over verbose output.
+                            </p>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant opacity-50 animate-pulse mt-8">
+<span class="font-bold">_</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="bg-surface-container-lowest full-width border-t border-outline-variant flat no shadows mt-24">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-16 max-w-container-max mx-auto">
+<!-- Brand Column -->
+<div class="col-span-1 md:col-span-1 flex flex-col items-start gap-4">
+<div class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-2">
+<span class="text-cyber-cyan font-bold">V</span>
+<span>vForge</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 vForge. Built by vForge.</p>
+</div>
+<!-- Links Columns -->
+<div class="col-span-1 flex flex-col gap-3">
+<h4 class="font-label-caps text-label-caps text-on-surface font-bold uppercase tracking-widest mb-2">Product</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Features</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Integrations</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Pricing</a>
+</div>
+<div class="col-span-1 flex flex-col gap-3">
+<h4 class="font-label-caps text-label-caps text-on-surface font-bold uppercase tracking-widest mb-2">Company</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">About Us</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Careers</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Contact</a>
+</div>
+<div class="col-span-1 flex flex-col gap-3">
+<h4 class="font-label-caps text-label-caps text-on-surface font-bold uppercase tracking-widest mb-2">Resources</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Documentation</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">API Reference</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Status</a>
+</div>
+</div>
+</footer>
+</body></html>

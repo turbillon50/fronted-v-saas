@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>vForge - Project Hub</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=Hanken+Grotesk:wght@300;400;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ffb4ab",
+                    "primary-fixed": "#e9ddff",
+                    "secondary": "#a7caf3",
+                    "on-secondary-fixed-variant": "#25496c",
+                    "inverse-surface": "#e5e2e1",
+                    "primary-fixed-dim": "#d0bcff",
+                    "on-tertiary-container": "#292c00",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-container-highest": "#353534",
+                    "background": "#131313",
+                    "secondary-fixed": "#d0e4ff",
+                    "inverse-on-surface": "#313030",
+                    "charcoal-surface": "#121212",
+                    "primary-container": "#a078ff",
+                    "outline": "#958ea0",
+                    "surface-container-high": "#2a2a2a",
+                    "on-secondary-container": "#99bbe4",
+                    "tertiary-fixed": "#dfed1a",
+                    "on-primary": "#3c0091",
+                    "inverse-primary": "#6d3bd7",
+                    "surface-dim": "#131313",
+                    "on-secondary": "#063254",
+                    "on-tertiary-fixed": "#1b1d00",
+                    "surface-tint": "#d0bcff",
+                    "on-surface": "#e5e2e1",
+                    "on-primary-fixed": "#23005c",
+                    "outline-variant": "#494454",
+                    "on-primary-fixed-variant": "#5516be",
+                    "on-error-container": "#ffdad6",
+                    "surface": "#131313",
+                    "on-primary-container": "#340080",
+                    "on-tertiary": "#2f3300",
+                    "electric-blue": "#3B82F6",
+                    "on-secondary-fixed": "#001d35",
+                    "surface-container": "#201f1f",
+                    "success-emerald": "#10B981",
+                    "on-tertiary-fixed-variant": "#454a00",
+                    "on-error": "#690005",
+                    "error-crimson": "#EF4444",
+                    "on-background": "#e5e2e1",
+                    "off-white": "#F8FAFC",
+                    "tertiary-fixed-dim": "#c3d000",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-variant": "#353534",
+                    "tertiary": "#c3d000",
+                    "error-container": "#93000a",
+                    "primary": "#d0bcff",
+                    "secondary-container": "#274b6e",
+                    "cyber-cyan": "#22D3EE",
+                    "on-surface-variant": "#cbc3d7",
+                    "surface-bright": "#3a3939",
+                    "secondary-fixed-dim": "#a7caf3",
+                    "tertiary-container": "#8e9800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "margin-mobile": "20px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Geist"
+                    ],
+                    "code-block": [
+                            "JetBrains Mono"
+                    ],
+                    "body-sm": [
+                            "Hanken Grotesk"
+                    ],
+                    "headline-xl": [
+                            "Geist"
+                    ],
+                    "body-md": [
+                            "Hanken Grotesk"
+                    ],
+                    "label-caps": [
+                            "JetBrains Mono"
+                    ],
+                    "headline-lg-mobile": [
+                            "Geist"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "code-block": [
+                            "14px",
+                            {
+                                    "lineHeight": "22px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "300"
+                            }
+                    ],
+                    "headline-xl": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.04em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "300"
+                            }
+                    ],
+                    "label-caps": [
+                            "11px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased selection:bg-electric-blue/30 selection:text-cyber-cyan">
+<!-- TopNavBar -->
+<nav class="bg-background/80 backdrop-blur-xl border-b border-outline-variant/30 docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="font-headline-lg text-headline-lg font-bold tracking-tighter text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-electric-blue" style="font-variation-settings: 'FILL' 1;">terminal</span>
+                vForge
+            </div>
+<!-- Navigation Links (Desktop) -->
+<ul class="hidden md:flex items-center gap-8">
+<li>
+<a class="text-cyber-cyan font-semibold border-b-2 border-cyber-cyan pb-1 flex flex-col" href="#">Product</a>
+</li>
+<li>
+<a class="text-on-surface-variant font-body-md hover:text-on-surface transition-colors hover:text-cyber-cyan transition-all duration-300" href="#">Pricing</a>
+</li>
+<li>
+<a class="text-on-surface-variant font-body-md hover:text-on-surface transition-colors hover:text-cyber-cyan transition-all duration-300" href="#">Docs</a>
+</li>
+</ul>
+<!-- Trailing Action -->
+<div class="hidden md:block">
+<button class="bg-gradient-to-r from-electric-blue to-primary-container text-off-white font-body-sm text-body-sm px-6 py-2 rounded-DEFAULT hover:scale-95 transition-transform duration-150">
+                    Get Started
+                </button>
+</div>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface-variant">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16 flex flex-col gap-12">
+<!-- Header -->
+<header class="flex flex-col gap-2">
+<h1 class="font-headline-xl text-headline-xl text-on-background tracking-tight">Project Hub</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Central command for deployed architectures. Monitor repositories, edge deployments, and secure vaults in real-time.</p>
+</header>
+<!-- Hero: Bento Grid Project Status -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Vercel Deploy Status (Large Panel) -->
+<div class="md:col-span-8 bg-charcoal-surface rounded-lg border border-outline-variant/30 p-8 flex flex-col justify-between group hover:border-outline-variant/50 transition-colors relative overflow-hidden">
+<!-- Decorative V Watermark -->
+<div class="absolute -right-16 -top-16 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">change_history</span>
+</div>
+<div class="flex justify-between items-start mb-8 relative z-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-DEFAULT bg-surface-container flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-on-surface">rocket_launch</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">Production Deploy</h2>
+<p class="font-code-block text-code-block text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-success-emerald shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                                vforge-core-app.vercel.app
+                            </p>
+</div>
+</div>
+<span class="font-label-caps text-label-caps bg-success-emerald/10 text-success-emerald px-3 py-1 rounded-DEFAULT border border-success-emerald/20">READY</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10 border-t border-outline-variant/20 pt-6">
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">LATEST COMMIT</span>
+<span class="font-code-block text-code-block text-on-background">a1b2c3d</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">BRANCH</span>
+<span class="font-code-block text-code-block text-on-background">main</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">DURATION</span>
+<span class="font-code-block text-code-block text-on-background">42s</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ENVIRONMENT</span>
+<span class="font-code-block text-code-block text-on-background text-cyber-cyan">Production</span>
+</div>
+</div>
+</div>
+<!-- GitHub Repo Status (Small Panel) -->
+<div class="md:col-span-4 bg-charcoal-surface rounded-lg border border-outline-variant/30 p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl">code_blocks</span>
+<h3 class="font-headline-lg text-headline-lg-mobile text-on-background text-xl">Repository</h3>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<div class="font-code-block text-code-block text-on-background mb-1">vforge/core-engine</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Private monorepo containing core services and frontend assets.</p>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">call_split</span>
+<span class="font-code-block text-code-block">12 PRs</span>
+</div>
+<a class="font-label-caps text-label-caps text-electric-blue hover:text-cyber-cyan transition-colors flex items-center gap-1" href="#">
+                        VIEW <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Vault Status (Small Panel spanning 4 cols if reflowed, or inline below) -->
+<div class="md:col-span-4 bg-charcoal-surface rounded-lg border border-outline-variant/30 p-6 flex flex-col gap-6 relative group overflow-hidden">
+<div class="absolute inset-0 border-[1px] border-transparent group-hover:border-primary-container/20 transition-colors pointer-events-none rounded-lg"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;">lock</span>
+<h3 class="font-headline-lg text-headline-lg-mobile text-on-background text-xl">Secure Vault</h3>
+</div>
+<span class="material-symbols-outlined text-success-emerald text-sm">check_circle</span>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Environment Variables</span>
+<span class="font-code-block text-code-block text-on-background">24 Synced</span>
+</div>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Connectivity Indicators Strip -->
+<div class="md:col-span-8 bg-charcoal-surface rounded-lg border border-outline-variant/30 px-6 py-4 flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant whitespace-nowrap">INTEGRATION STATUS</span>
+<div class="flex items-center gap-8 w-full md:w-auto md:justify-end">
+<!-- Clerk -->
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-success-emerald"></span>
+<span class="font-code-block text-code-block text-on-background text-sm">Clerk Auth</span>
+</div>
+<!-- Resend -->
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-success-emerald"></span>
+<span class="font-code-block text-code-block text-on-background text-sm">Resend Mail</span>
+</div>
+<!-- Neon -->
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-success-emerald"></span>
+<span class="font-code-block text-code-block text-on-background text-sm">Neon DB</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Project Snapshots Slider -->
+<section class="flex flex-col gap-6 pt-8 border-t border-outline-variant/20">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">Project Snapshots</h3>
+<div class="flex items-center gap-2 hidden md:flex">
+<button class="w-8 h-8 rounded-DEFAULT border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:text-on-background hover:border-outline-variant transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-DEFAULT border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:text-on-background hover:border-outline-variant transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Scrollable Container -->
+<div class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-4 no-scrollbar -mx-margin-mobile px-margin-mobile md:-mx-margin-desktop md:px-margin-desktop">
+<!-- Snapshot Card 1 -->
+<div class="snap-center shrink-0 w-[85vw] md:w-[480px] bg-charcoal-surface border border-outline-variant/30 rounded-lg overflow-hidden group">
+<div class="h-48 w-full bg-surface-container relative overflow-hidden">
+<img alt="Dashboard screenshot" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" data-alt="A highly detailed screenshot of a modern analytics dashboard interface displayed on a high-resolution dark mode screen. The UI features stark absolute blacks, minimalist grid layouts, and vibrant electric blue and cyan data visualizations. The lighting is artificial and crisp, highlighting the precise geometry of the application within a sophisticated tech environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfsXX3hTbv7I2FAKdOjDzbkxUOQxHqbKfXFG9RDOnhVAN_8q1GMI6a07_XPjYbCi9bL48oNSq7TN-InKRgu9CGRKr_VfiHYduDOuwmT-UR6EIzSpJZd5fMaEUwyyTG3Oa-tciKnY_d2DICXXjwMlksdmsde_qJSbZIv6TOGd5sx2nJ9Oc6Y8ls09Dk-wzu8USOLY9E4GMjRx6BgQ32Fkx1SvxTiDNiIIv9lR9IwWDyOaI9enmJlXGRYCF5CpA_ibJd2VHVbcEMggo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-charcoal-surface to-transparent opacity-80"></div>
+<div class="absolute bottom-4 left-4">
+<span class="font-label-caps text-label-caps bg-background/80 backdrop-blur-md text-on-surface px-2 py-1 rounded-DEFAULT border border-outline-variant/30">ANALYTICS VIEW</span>
+</div>
+</div>
+<div class="p-6">
+<h4 class="font-headline-lg text-headline-lg-mobile text-on-background text-lg mb-2">User Telemetry Dashboard</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time visualization of user sessions and geographic distribution across global edge nodes.</p>
+</div>
+</div>
+<!-- Snapshot Card 2 -->
+<div class="snap-center shrink-0 w-[85vw] md:w-[480px] bg-charcoal-surface border border-outline-variant/30 rounded-lg overflow-hidden group">
+<div class="h-48 w-full bg-surface-container relative overflow-hidden">
+<img alt="Database schema visualization" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" data-alt="A futuristic visualization of a complex database schema floating in a dark void. The data nodes are connected by glowing neon purple and cyan lines, representing relationships in a high-density modular layout. The aesthetic is strictly Zen Tech, emphasizing silent efficiency with expansive negative space around the central glowing data structure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt6t6I-L1F019zjjHa95JxQwTk3lRTUHwfMDZjiLJKd-UtZELE6DkO2W_CHmxBGU6CsWhbdLoLcjWr8Chzy6-rO6G7oRUWJ2tTtUsi1-dnFNkI0KiFZXQ3zCP3C-IpZj3JYNaL8D7yfyrgBoxCiQGboFiXMzLcilVZ3qyMOiH6kiOq4PnErcFQctFm4kcw5MQLkDDVH1x9jBmxR8gSCoJ2TBGVClrsiSRgdfVFBjlpvemyfr30kZelCGOspa6UcuKoXjpHtlUg5Sc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-charcoal-surface to-transparent opacity-80"></div>
+<div class="absolute bottom-4 left-4">
+<span class="font-label-caps text-label-caps bg-background/80 backdrop-blur-md text-on-surface px-2 py-1 rounded-DEFAULT border border-outline-variant/30">SCHEMA TOPOLOGY</span>
+</div>
+</div>
+<div class="p-6">
+<h4 class="font-headline-lg text-headline-lg-mobile text-on-background text-lg mb-2">Relational Graph</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Visual mapping of the Neon Postgres database structure, highlighting high-latency queries.</p>
+</div>
+</div>
+<!-- Snapshot Card 3 -->
+<div class="snap-center shrink-0 w-[85vw] md:w-[480px] bg-charcoal-surface border border-outline-variant/30 rounded-lg overflow-hidden group">
+<div class="h-48 w-full bg-surface-container relative overflow-hidden">
+<div class="w-full h-full bg-gradient-to-br from-surface-container to-background flex items-center justify-center border-b border-outline-variant/20 group-hover:scale-105 transition-transform duration-500">
+<span class="material-symbols-outlined text-[64px] text-surface-variant group-hover:text-cyber-cyan/50 transition-colors">terminal</span>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-charcoal-surface to-transparent opacity-80"></div>
+<div class="absolute bottom-4 left-4">
+<span class="font-label-caps text-label-caps bg-background/80 backdrop-blur-md text-on-surface px-2 py-1 rounded-DEFAULT border border-outline-variant/30">API LOGS</span>
+</div>
+</div>
+<div class="p-6">
+<h4 class="font-headline-lg text-headline-lg-mobile text-on-background text-lg mb-2">Request Tracing</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Live streaming logs from the edge API endpoints, filtered by severe errors and warnings.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest full-width border-t border-outline-variant flat no shadows">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-16 max-w-container-max mx-auto">
+<!-- Brand & Copyright -->
+<div class="flex flex-col gap-4 md:col-span-1">
+<div class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-electric-blue" style="font-variation-settings: 'FILL' 1;">terminal</span>
+                    vForge
+                </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    © 2024 vForge. Built by vForge.
+                </p>
+</div>
+<!-- Links Column 1 -->
+<div class="flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">PRODUCT</span>
+<a class="font-body-sm text-body-sm text-on-surface font-bold hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Product</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Pricing</a>
+</div>
+<!-- Links Column 2 -->
+<div class="flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">COMPANY</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Company</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Careers</a>
+</div>
+<!-- Links Column 3 -->
+<div class="flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">RESOURCES</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Resources</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-electric-blue transition-colors focus:outline-none focus:text-cyber-cyan" href="#">Docs</a>
+</div>
+</div>
+</footer>
+</body></html>
