@@ -1,0 +1,53 @@
+import type { Metadata, Viewport } from "next";
+import { Hanken_Grotesk } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import "./globals.css";
+import { ClerkShell } from "@/components/auth/ClerkShell";
+import { RegisterSW } from "@/components/pwa/RegisterSW";
+
+const hanken = Hanken_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-hanken",
+  display: "swap",
+  weight: ["300", "400", "500", "600"],
+});
+
+export const metadata: Metadata = {
+  title: "VForge — Build and operate complete products through conversation",
+  description:
+    "VForge is an AI-native operational workspace. Create apps, generate frontend & backend, deploy, and orchestrate every service through conversation with B.",
+  applicationName: "VForge",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "VForge" },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "VForge — Operate products through conversation",
+    description:
+      "An AI-native operational workspace. Frontend, backend, deployments, integrations and infrastructure — orchestrated by B.",
+    type: "website",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} ${hanken.variable} dark`}>
+      <body className="font-sans bg-void text-on-surface min-h-dvh scanlines">
+        <ClerkShell>{children}</ClerkShell>
+        <RegisterSW />
+      </body>
+    </html>
+  );
+}

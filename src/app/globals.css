@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: #050505;
+  color: #e5e2e1;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: #f8fafc;
+}
+
+/* Subtle scanlines overlay for that cinematic feel */
+.scanlines::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.18) 50%);
+  background-size: 100% 3px;
+  opacity: 0.18;
+  z-index: 60;
+  mix-blend-mode: overlay;
+}
+
+@layer components {
+  .glass {
+    background: rgba(16, 16, 18, 0.55);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .glass-strong {
+    background: rgba(14, 14, 16, 0.7);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .glow-border {
+    position: relative;
+    isolation: isolate;
+  }
+  .glow-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.6), rgba(34, 211, 238, 0.45) 60%, transparent 80%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .label-caps {
+    font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border bg-white/[0.03] text-[11px] tracking-wider uppercase text-on-surface-variant;
+    font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-white transition-all;
+    background: linear-gradient(135deg, #7c3aed 0%, #22d3ee 100%);
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+    font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 40px rgba(124, 58, 237, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-on-surface transition-all;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
+  }
+  .btn-ghost:hover {
+    border-color: rgba(34, 211, 238, 0.4);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .input-base {
+    @apply w-full rounded-md bg-white/[0.02] border border-white/10 px-3 py-2.5 text-sm text-on-surface placeholder:text-muted focus:outline-none focus:border-violet-400/60 focus:ring-2 focus:ring-violet-500/20 transition;
+  }
+  .grid-bg {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: -1px -1px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 30%, transparent 75%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
