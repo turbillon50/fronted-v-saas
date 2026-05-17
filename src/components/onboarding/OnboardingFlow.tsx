@@ -15,90 +15,35 @@ import {
   CreditCard,
   Phone,
   MapPin,
-  KeyRound,
   Sparkles,
   Info,
   Rocket,
 } from "lucide-react";
 import { VWordmark } from "@/components/brand/VMark";
+import { useT, interpolate } from "@/i18n/AppProviders";
+import { ThemeToggle } from "@/components/controls/ThemeToggle";
+import { LocaleToggle } from "@/components/controls/LocaleToggle";
 
-type Integration = {
-  id: string;
-  name: string;
-  icon: LucideIcon;
-  blurb: string;
-  glossary: string;
-  required?: boolean;
-};
+type IntegrationKey = "github" | "vercel" | "domains" | "neon" | "stripe" | "twilio" | "maps";
 
-const integrations: Integration[] = [
-  {
-    id: "github",
-    name: "GitHub",
-    icon: Github,
-    blurb: "Host your code and let B push changes for you.",
-    glossary:
-      "GitHub stores your project’s code in repositories. VForge uses it to read, modify and create new repositories on your behalf — with your approval.",
-    required: true,
-  },
-  {
-    id: "vercel",
-    name: "Vercel",
-    icon: Rocket,
-    blurb: "Deploy frontends, previews and edge functions instantly.",
-    glossary:
-      "Vercel turns your code into a live website. Every change creates a preview URL; production deploys go live with one approval from you.",
-    required: true,
-  },
-  {
-    id: "domains",
-    name: "Domains",
-    icon: Globe2,
-    blurb: "Buy or connect a domain. B handles the DNS.",
-    glossary:
-      "A domain is the address users type to reach your product. VForge configures it automatically and issues SSL certificates for you.",
-  },
-  {
-    id: "neon",
-    name: "Database",
-    icon: Database,
-    blurb: "Spin up Postgres in seconds with branching previews.",
-    glossary:
-      "A database stores the real data of your product — users, payments, files. We use serverless Postgres with branching for safe migrations.",
-  },
-  {
-    id: "stripe",
-    name: "Stripe",
-    icon: CreditCard,
-    blurb: "Charge customers, manage subscriptions, taxes and refunds.",
-    glossary:
-      "Stripe handles money — subscriptions, one-time payments, invoices. B configures products, prices and webhooks for you.",
-  },
-  {
-    id: "twilio",
-    name: "Twilio",
-    icon: Phone,
-    blurb: "SMS, WhatsApp and voice notifications.",
-    glossary:
-      "Twilio sends messages to your users — confirmations, alerts, two-factor codes — across SMS, WhatsApp and voice.",
-  },
-  {
-    id: "maps",
-    name: "Maps",
-    icon: MapPin,
-    blurb: "Geocoding, places, routing for any location feature.",
-    glossary:
-      "Maps lets your product show locations, search addresses, and calculate routes. Useful for delivery, real estate or social apps.",
-  },
+const integrationOrder: { id: IntegrationKey; icon: LucideIcon; required?: boolean }[] = [
+  { id: "github", icon: Github, required: true },
+  { id: "vercel", icon: Rocket, required: true },
+  { id: "domains", icon: Globe2 },
+  { id: "neon", icon: Database },
+  { id: "stripe", icon: CreditCard },
+  { id: "twilio", icon: Phone },
+  { id: "maps", icon: MapPin },
 ];
 
 type Step = "welcome" | "profile" | "connect" | "first-project" | "summary";
 
 export function OnboardingFlow() {
+  const t = useT();
   const [step, setStep] = useState<Step>("welcome");
   const [connected, setConnected] = useState<Record<string, boolean>>({});
   const [name, setName] = useState("");
-  const [role, setRole] = useState("Founder");
+  const [role, setRole] = useState<string>(t.onboarding.profile_roles[0]);
   const [projectName, setProjectName] = useState("Orion Studio");
   const [intent, setIntent] = useState("");
 
@@ -111,16 +56,18 @@ export function OnboardingFlow() {
 
   return (
     <div className="relative z-10 mx-auto flex min-h-dvh max-w-3xl flex-col px-5 py-10 md:px-0">
-      {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <Link href="/"><VWordmark /></Link>
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-          Onboarding · step {stepIndex + 1} / {order.length}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+            {interpolate(t.onboarding.step_progress, { current: stepIndex + 1, total: order.length })}
+          </span>
+          <LocaleToggle compact />
+          <ThemeToggle compact />
+        </div>
       </div>
 
-      {/* Progress */}
-      <div className="mb-10 h-1 w-full overflow-hidden rounded-full bg-white/5">
+      <div className="mb-10 h-1 w-full overflow-hidden rounded-full bg-tint-2">
         <motion.div
           initial={false}
           animate={{ width: `${progress}%` }}
@@ -138,9 +85,7 @@ export function OnboardingFlow() {
           transition={{ duration: 0.35 }}
           className="glass-strong rounded-2xl p-8 md:p-10"
         >
-          {step === "welcome" && (
-            <Welcome onContinue={goNext} />
-          )}
+          {step === "welcome" && <Welcome onContinue={goNext} />}
 
           {step === "profile" && (
             <Profile
@@ -148,16 +93,13 @@ export function OnboardingFlow() {
               setName={setName}
               role={role}
               setRole={setRole}
-              onContinue={goNext}
             />
           )}
 
           {step === "connect" && (
             <Connect
               connected={connected}
-              onToggle={(id) =>
-                setConnected((p) => ({ ...p, [id]: !p[id] }))
-              }
+              onToggle={(id) => setConnected((p) => ({ ...p, [id]: !p[id] }))}
             />
           )}
 
@@ -171,30 +113,22 @@ export function OnboardingFlow() {
           )}
 
           {step === "summary" && (
-            <Summary
-              name={name}
-              project={projectName}
-              connected={connected}
-            />
+            <Summary name={name} project={projectName} connected={connected} />
           )}
         </motion.div>
       </AnimatePresence>
 
       <div className="mt-6 flex items-center justify-between">
-        <button
-          onClick={goBack}
-          disabled={stepIndex === 0}
-          className="btn-ghost disabled:opacity-30"
-        >
-          <ArrowLeft size={14} /> Back
+        <button onClick={goBack} disabled={stepIndex === 0} className="btn-ghost disabled:opacity-30">
+          <ArrowLeft size={14} /> {t.common.cta_back}
         </button>
         {step !== "summary" ? (
           <button onClick={goNext} className="btn-primary">
-            Continue <ArrowRight size={14} />
+            {t.common.cta_continue} <ArrowRight size={14} />
           </button>
         ) : (
           <Link href="/app" className="btn-primary">
-            Enter the workspace <ArrowRight size={14} />
+            {t.onboarding.enter_workspace} <ArrowRight size={14} />
           </Link>
         )}
       </div>
@@ -203,20 +137,18 @@ export function OnboardingFlow() {
 }
 
 function Welcome({ onContinue }: { onContinue: () => void }) {
+  const t = useT();
   return (
     <div className="text-center">
       <div className="mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-full bg-violet-500/10 ring-1 ring-violet-500/30 animate-breathe">
-        <Sparkles className="text-cyan-400" size={22} />
+        <Sparkles className="text-cyber-cyan" size={22} />
       </div>
       <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl text-balance">
-        Hello. I’m B.
+        {t.onboarding.welcome_title}
       </h1>
-      <p className="mx-auto mt-3 max-w-md text-on-surface-variant">
-        I’ll be your operator. Together we’ll connect a few services, then I’ll start building your
-        first product. Take it at your pace — every action is yours to approve.
-      </p>
+      <p className="mx-auto mt-3 max-w-md text-on-surface-variant">{t.onboarding.welcome_body}</p>
       <button onClick={onContinue} className="btn-primary mt-8">
-        Let’s begin <ArrowRight size={14} />
+        {t.onboarding.welcome_cta} <ArrowRight size={14} />
       </button>
     </div>
   );
@@ -227,43 +159,40 @@ function Profile({
   setName,
   role,
   setRole,
-  onContinue,
 }: {
   name: string;
   setName: (s: string) => void;
   role: string;
   setRole: (s: string) => void;
-  onContinue: () => void;
 }) {
+  const t = useT();
   return (
     <div>
-      <h2 className="font-display text-2xl font-semibold tracking-tight">Tell me about you</h2>
-      <p className="mt-2 text-on-surface-variant">
-        This shapes how I’ll talk to you, explain things, and what I’ll prioritize.
-      </p>
+      <h2 className="font-display text-2xl font-semibold tracking-tight">{t.onboarding.profile_title}</h2>
+      <p className="mt-2 text-on-surface-variant">{t.onboarding.profile_body}</p>
 
       <div className="mt-7 grid gap-5">
         <label className="block">
-          <span className="label-caps text-muted">Your name</span>
+          <span className="label-caps text-muted">{t.onboarding.profile_name_label}</span>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="e.g. Camila"
+            placeholder={t.onboarding.profile_name_placeholder}
             className="input-base mt-2"
           />
         </label>
 
         <div>
-          <span className="label-caps text-muted">Your role</span>
+          <span className="label-caps text-muted">{t.onboarding.profile_role_label}</span>
           <div className="mt-3 flex flex-wrap gap-2">
-            {["Founder", "Engineer", "Designer", "Operator", "Hobbyist"].map((r) => (
+            {t.onboarding.profile_roles.map((r) => (
               <button
                 key={r}
                 onClick={() => setRole(r)}
                 className={`rounded-full border px-4 py-1.5 text-sm transition ${
                   role === r
-                    ? "border-violet-400/50 bg-violet-500/15 text-violet-100"
-                    : "border-white/10 text-on-surface-variant hover:border-white/20"
+                    ? "border-violet-400/50 bg-violet-500/15 text-violet-300"
+                    : "border-app-strong text-on-surface-variant hover:border-app-strong/80"
                 }`}
               >
                 {r}
@@ -283,64 +212,57 @@ function Connect({
   connected: Record<string, boolean>;
   onToggle: (id: string) => void;
 }) {
+  const t = useT();
   const [open, setOpen] = useState<string | null>(null);
 
   return (
     <div>
-      <h2 className="font-display text-2xl font-semibold tracking-tight">Connect your ecosystem</h2>
-      <p className="mt-2 text-on-surface-variant">
-        I’ll guide you through each one. You can skip any service and connect it later from the
-        Marketplace.
-      </p>
+      <h2 className="font-display text-2xl font-semibold tracking-tight">{t.onboarding.connect_title}</h2>
+      <p className="mt-2 text-on-surface-variant">{t.onboarding.connect_body}</p>
 
       <div className="mt-7 grid gap-3">
-        {integrations.map((i) => {
-          const isOn = !!connected[i.id];
+        {integrationOrder.map(({ id, icon: Icon, required }) => {
+          const meta = t.onboarding.integrations[id];
+          const isOn = !!connected[id];
           return (
-            <div
-              key={i.id}
-              className="rounded-xl border border-white/5 bg-white/[0.02] p-4 transition hover:border-white/10"
-            >
+            <div key={id} className="rounded-xl border border-app bg-tint-1 p-4 transition hover:border-app-strong">
               <div className="flex items-center gap-4">
                 <div
                   className={`flex h-10 w-10 items-center justify-center rounded-lg ${
                     isOn
                       ? "bg-success-emerald/15 text-success-emerald ring-1 ring-success-emerald/30"
-                      : "bg-white/5 text-on-surface-variant"
+                      : "bg-tint-2 text-on-surface-variant"
                   }`}
                 >
-                  <i.icon size={18} />
+                  <Icon size={18} />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="font-display font-semibold">{i.name}</p>
-                    {i.required && <span className="chip">Recommended</span>}
+                    <p className="font-display font-semibold">{meta.name}</p>
+                    {required && <span className="chip">{t.onboarding.label_recommended}</span>}
                   </div>
-                  <p className="text-sm text-on-surface-variant">{i.blurb}</p>
+                  <p className="text-sm text-on-surface-variant">{meta.blurb}</p>
                 </div>
                 <button
-                  onClick={() => setOpen(open === i.id ? null : i.id)}
-                  className="rounded-md p-2 text-muted hover:bg-white/5 hover:text-on-surface"
-                  aria-label={`What is ${i.name}?`}
+                  onClick={() => setOpen(open === id ? null : id)}
+                  className="rounded-md p-2 text-muted hover:bg-tint-2 hover:text-on-surface"
+                  aria-label={`Glossary: ${meta.name}`}
                 >
                   <Info size={16} />
                 </button>
-                <button
-                  onClick={() => onToggle(i.id)}
-                  className={isOn ? "btn-ghost" : "btn-primary"}
-                >
+                <button onClick={() => onToggle(id)} className={isOn ? "btn-ghost" : "btn-primary"}>
                   {isOn ? (
                     <>
-                      <CheckCircle2 size={14} className="text-success-emerald" /> Connected
+                      <CheckCircle2 size={14} className="text-success-emerald" /> {t.onboarding.label_connected}
                     </>
                   ) : (
-                    <>Connect</>
+                    t.common.cta_connect
                   )}
                 </button>
               </div>
 
               <AnimatePresence>
-                {open === i.id && (
+                {open === id && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
@@ -348,8 +270,8 @@ function Connect({
                     className="overflow-hidden"
                   >
                     <div className="mt-3 rounded-md border border-cyan-400/20 bg-cyan-400/[0.04] p-3 text-sm text-on-surface-variant">
-                      <span className="label-caps mr-2 text-cyber-cyan">Glossary</span>
-                      {i.glossary}
+                      <span className="label-caps mr-2 text-cyber-cyan">{t.onboarding.glossary_label}</span>
+                      {meta.glossary}
                     </div>
                   </motion.div>
                 )}
@@ -373,38 +295,35 @@ function FirstProject({
   intent: string;
   setIntent: (s: string) => void;
 }) {
+  const t = useT();
   return (
     <div>
-      <h2 className="font-display text-2xl font-semibold tracking-tight">Your first project</h2>
-      <p className="mt-2 text-on-surface-variant">
-        Give it a name and tell me what you want to build. I’ll draft the architecture for your
-        approval inside the workspace.
-      </p>
+      <h2 className="font-display text-2xl font-semibold tracking-tight">{t.onboarding.project_title}</h2>
+      <p className="mt-2 text-on-surface-variant">{t.onboarding.project_body}</p>
 
       <div className="mt-7 grid gap-5">
         <label className="block">
-          <span className="label-caps text-muted">Project name</span>
+          <span className="label-caps text-muted">{t.onboarding.project_name_label}</span>
           <input
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
             className="input-base mt-2"
-            placeholder="e.g. Orion Studio"
+            placeholder={t.onboarding.project_name_placeholder}
           />
         </label>
         <label className="block">
-          <span className="label-caps text-muted">What are we building?</span>
+          <span className="label-caps text-muted">{t.onboarding.project_intent_label}</span>
           <textarea
             value={intent}
             onChange={(e) => setIntent(e.target.value)}
-            placeholder="A small-studio SaaS with bookings, payments and SMS reminders. Premium dark UI. Maps for the studio location."
+            placeholder={t.onboarding.project_intent_placeholder}
             rows={5}
             className="input-base mt-2 resize-none"
           />
         </label>
-        <div className="rounded-md border border-violet-400/20 bg-violet-500/[0.06] p-4 text-sm text-violet-100">
-          <span className="label-caps mr-2 text-violet-300">B</span>
-          I’ll propose the stack inside the workspace — frontend, backend, integrations and a
-          deploy plan. You approve, I execute.
+        <div className="rounded-md border border-violet-400/20 bg-violet-500/[0.06] p-4 text-sm text-on-surface">
+          <span className="label-caps mr-2 text-violet-300">{t.common.label_b}</span>
+          {t.onboarding.project_b_note}
         </div>
       </div>
     </div>
@@ -420,40 +339,44 @@ function Summary({
   project: string;
   connected: Record<string, boolean>;
 }) {
+  const t = useT();
   const ok = Object.keys(connected).filter((k) => connected[k]);
+  const title = name
+    ? interpolate(t.onboarding.summary_title_named, { name })
+    : t.onboarding.summary_title_anon;
+  const body = interpolate(t.onboarding.summary_body, {
+    project: project || t.onboarding.summary_project_fallback,
+  });
   return (
     <div className="text-center">
       <div className="mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-full bg-success-emerald/10 ring-1 ring-success-emerald/30">
         <CheckCircle2 size={22} className="text-success-emerald" />
       </div>
-      <h2 className="font-display text-3xl font-semibold tracking-tight">
-        {name ? `Welcome, ${name}.` : "Welcome aboard."}
-      </h2>
-      <p className="mx-auto mt-3 max-w-md text-on-surface-variant">
-        Your workspace is ready. I’ll start by drafting <span className="text-on-surface">{project || "your project"}</span>.
-      </p>
+      <h2 className="font-display text-3xl font-semibold tracking-tight">{title}</h2>
+      <p className="mx-auto mt-3 max-w-md text-on-surface-variant">{body}</p>
 
-      <div className="mx-auto mt-7 max-w-md rounded-xl border border-white/10 bg-white/[0.02] p-5 text-left">
-        <p className="label-caps mb-3 text-muted">Connected</p>
-        {integrations.map((i) => (
-          <div
-            key={i.id}
-            className="flex items-center justify-between border-b border-white/5 py-2 text-sm last:border-0"
-          >
-            <span className="flex items-center gap-2 text-on-surface">
-              <i.icon size={14} className="text-on-surface-variant" /> {i.name}
-            </span>
-            {ok.includes(i.id) ? (
-              <span className="flex items-center gap-1.5 text-success-emerald">
-                <CheckCircle2 size={12} /> ready
+      <div className="mx-auto mt-7 max-w-md rounded-xl border border-app-strong bg-tint-1 p-5 text-left">
+        <p className="label-caps mb-3 text-muted">{t.onboarding.summary_connected}</p>
+        {integrationOrder.map(({ id, icon: Icon }) => {
+          const meta = t.onboarding.integrations[id];
+          const isOn = ok.includes(id);
+          return (
+            <div key={id} className="flex items-center justify-between border-b border-app py-2 text-sm last:border-0">
+              <span className="flex items-center gap-2 text-on-surface">
+                <Icon size={14} className="text-on-surface-variant" /> {meta.name}
               </span>
-            ) : (
-              <span className="flex items-center gap-1.5 text-muted">
-                <Circle size={12} /> later
-              </span>
-            )}
-          </div>
-        ))}
+              {isOn ? (
+                <span className="flex items-center gap-1.5 text-success-emerald">
+                  <CheckCircle2 size={12} /> {t.onboarding.summary_ready}
+                </span>
+              ) : (
+                <span className="flex items-center gap-1.5 text-muted">
+                  <Circle size={12} /> {t.onboarding.summary_later}
+                </span>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

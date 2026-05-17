@@ -4,22 +4,107 @@
 
 :root {
   color-scheme: dark;
+
+  /* Surfaces — dark (default) */
+  --color-void: #050505;
+  --color-ink: #0a0a0a;
+  --color-background: #0e0e0e;
+  --color-surface: #131313;
+  --color-surface-low: #1a1a1a;
+  --color-surface-high: #1f1f1f;
+  --color-surface-elev: #262626;
+
+  --color-border: 255 255 255 / 0.06;
+  --color-border-strong: 255 255 255 / 0.12;
+
+  /* Text */
+  --color-on-surface: #e5e2e1;
+  --color-on-surface-variant: #a3a0ad;
+  --color-muted: #6b6975;
+  --color-off-white: #f8fafc;
+
+  /* Accents (same in both modes, slightly tuned for light) */
+  --color-violet-300: #b497ff;
+  --color-violet-400: #a078ff;
+  --color-violet-500: #8b5cf6;
+  --color-cyan-400: #22d3ee;
+  --color-electric-blue: #3b82f6;
+  --color-success-emerald: #10b981;
+  --color-error-crimson: #ef4444;
+
+  /* Effects */
+  --aura-opacity: 1;
+  --grid-opacity: 0.035;
+  --glass-bg: 16 16 18 / 0.55;
+  --glass-bg-strong: 14 14 16 / 0.7;
+  --scanlines-opacity: 0.18;
+  --scanlines-blend: overlay;
+  --shadow-elev: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 60px rgba(0, 0, 0, 0.35);
+
+  /* Subtle white overlay tints */
+  --tint-1: 255 255 255 / 0.02;
+  --tint-2: 255 255 255 / 0.04;
+  --tint-3: 255 255 255 / 0.06;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Surfaces — light (premium paper) */
+  --color-void: #f5f5f7;
+  --color-ink: #fafafa;
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-low: #f8f8fa;
+  --color-surface-high: #f0f0f3;
+  --color-surface-elev: #e7e7ec;
+
+  --color-border: 10 10 20 / 0.08;
+  --color-border-strong: 10 10 20 / 0.14;
+
+  /* Text */
+  --color-on-surface: #0c0c10;
+  --color-on-surface-variant: #4a4a55;
+  --color-muted: #7a7a88;
+  --color-off-white: #ffffff;
+
+  /* Accents — slightly deeper for AA contrast on light */
+  --color-violet-300: #8b5cf6;
+  --color-violet-400: #7c3aed;
+  --color-violet-500: #6d28d9;
+  --color-cyan-400: #0891b2;
+  --color-electric-blue: #2563eb;
+  --color-success-emerald: #059669;
+  --color-error-crimson: #dc2626;
+
+  /* Effects */
+  --aura-opacity: 0.6;
+  --grid-opacity: 0.05;
+  --glass-bg: 255 255 255 / 0.72;
+  --glass-bg-strong: 255 255 255 / 0.85;
+  --scanlines-opacity: 0;
+  --scanlines-blend: normal;
+  --shadow-elev: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 18px 48px rgba(10, 10, 20, 0.08);
+
+  --tint-1: 10 10 20 / 0.02;
+  --tint-2: 10 10 20 / 0.04;
+  --tint-3: 10 10 20 / 0.06;
 }
 
 html,
 body {
-  background-color: #050505;
-  color: #e5e2e1;
+  background-color: var(--color-void);
+  color: var(--color-on-surface);
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "ss01", "cv11";
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
   background: rgba(139, 92, 246, 0.35);
-  color: #f8fafc;
+  color: var(--color-off-white);
 }
 
-/* Subtle scanlines overlay for that cinematic feel */
 .scanlines::after {
   content: "";
   position: fixed;
@@ -27,23 +112,23 @@ body {
   pointer-events: none;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.18) 50%);
   background-size: 100% 3px;
-  opacity: 0.18;
+  opacity: var(--scanlines-opacity);
   z-index: 60;
-  mix-blend-mode: overlay;
+  mix-blend-mode: var(--scanlines-blend);
 }
 
 @layer components {
   .glass {
-    background: rgba(16, 16, 18, 0.55);
+    background: rgb(var(--glass-bg));
     backdrop-filter: blur(18px) saturate(160%);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgb(var(--color-border));
   }
   .glass-strong {
-    background: rgba(14, 14, 16, 0.7);
+    background: rgb(var(--glass-bg-strong));
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgb(var(--color-border-strong));
   }
   .glow-border {
     position: relative;
@@ -71,7 +156,10 @@ body {
     text-transform: uppercase;
   }
   .chip {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border bg-white/[0.03] text-[11px] tracking-wider uppercase text-on-surface-variant;
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] tracking-wider uppercase;
+    border: 1px solid rgb(var(--color-border));
+    background: rgb(var(--tint-1));
+    color: var(--color-on-surface-variant);
     font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
   }
   .btn-primary {
@@ -85,24 +173,36 @@ body {
     box-shadow: 0 14px 40px rgba(124, 58, 237, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-on-surface transition-all;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.02);
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] transition-all;
+    border: 1px solid rgb(var(--color-border-strong));
+    background: rgb(var(--tint-1));
+    color: var(--color-on-surface);
     font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
   }
   .btn-ghost:hover {
     border-color: rgba(34, 211, 238, 0.4);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgb(var(--tint-2));
   }
   .input-base {
-    @apply w-full rounded-md bg-white/[0.02] border border-white/10 px-3 py-2.5 text-sm text-on-surface placeholder:text-muted focus:outline-none focus:border-violet-400/60 focus:ring-2 focus:ring-violet-500/20 transition;
+    @apply w-full rounded-md px-3 py-2.5 text-sm transition focus:outline-none;
+    background: rgb(var(--tint-1));
+    border: 1px solid rgb(var(--color-border-strong));
+    color: var(--color-on-surface);
+  }
+  .input-base::placeholder {
+    color: var(--color-muted);
+  }
+  .input-base:focus {
+    border-color: rgba(139, 92, 246, 0.6);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
   }
   .grid-bg {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-image: linear-gradient(rgb(var(--color-border)) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--color-border)) 1px, transparent 1px);
     background-size: 56px 56px;
     background-position: -1px -1px;
     mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 30%, transparent 75%);
+    opacity: 1;
   }
 }
 
@@ -116,5 +216,20 @@ body {
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  .bg-tint-1 {
+    background-color: rgb(var(--tint-1));
+  }
+  .bg-tint-2 {
+    background-color: rgb(var(--tint-2));
+  }
+  .bg-tint-3 {
+    background-color: rgb(var(--tint-3));
+  }
+  .border-app {
+    border-color: rgb(var(--color-border));
+  }
+  .border-app-strong {
+    border-color: rgb(var(--color-border-strong));
   }
 }

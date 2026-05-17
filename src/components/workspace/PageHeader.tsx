@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -10,7 +12,12 @@ type Props = {
 
 export function PageHeader({ eyebrow, title, description, actions, className }: Props) {
   return (
-    <div className={cn("flex flex-col gap-4 border-b border-white/5 px-5 py-7 md:flex-row md:items-end md:justify-between md:px-8 md:py-8", className)}>
+    <div
+      className={cn(
+        "flex flex-col gap-4 border-b border-app px-5 py-7 md:flex-row md:items-end md:justify-between md:px-8 md:py-8",
+        className
+      )}
+    >
       <div>
         {eyebrow && <p className="label-caps mb-2 text-cyber-cyan">{eyebrow}</p>}
         <h1 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{title}</h1>

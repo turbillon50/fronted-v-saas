@@ -1,13 +1,17 @@
+"use client";
+
 import { PageHeader } from "@/components/workspace/PageHeader";
 import { MarketplaceGrid } from "@/components/workspace/MarketplaceGrid";
+import { useT } from "@/i18n/AppProviders";
 
 export default function MarketplacePage() {
+  const t = useT();
   return (
     <>
       <PageHeader
-        eyebrow="Marketplace"
-        title="Install capabilities. Compose your product."
-        description="Modular building blocks for auth, payments, maps, AI, messaging and more. B installs and configures them for you."
+        eyebrow={t.marketplace.eyebrow}
+        title={t.marketplace.title_workspace}
+        description={t.marketplace.body_workspace}
       />
       <MarketplaceGrid context="workspace" />
     </>

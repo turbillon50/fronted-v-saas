@@ -18,43 +18,42 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
-  Workflow,
 } from "lucide-react";
+import { useT } from "@/i18n/AppProviders";
 
-type Module = {
-  id: string;
-  name: string;
-  category: string;
-  icon: LucideIcon;
-  blurb: string;
-  installed?: boolean;
-  recommended?: boolean;
-};
+type ModuleKey = "clerk" | "stripe" | "twilio" | "maps" | "neon" | "vision" | "mail" | "storage" | "vercel" | "domains" | "agent" | "audit";
 
-const all: Module[] = [
-  { id: "clerk", name: "Clerk", category: "Auth", icon: KeyRound, blurb: "Drop-in authentication with SSO, MFA and orgs.", installed: true, recommended: true },
-  { id: "stripe", name: "Stripe", category: "Payments", icon: CreditCard, blurb: "Subscriptions, one-time, taxes and invoices.", installed: true, recommended: true },
-  { id: "twilio", name: "Twilio", category: "Messaging", icon: Phone, blurb: "SMS, WhatsApp and voice notifications." },
-  { id: "maps", name: "Google Maps", category: "Maps", icon: MapPin, blurb: "Geocoding, places and routes." },
-  { id: "neon", name: "Neon Postgres", category: "Database", icon: Database, blurb: "Serverless Postgres with branching.", installed: true },
-  { id: "vision", name: "AI Vision", category: "AI", icon: Eye, blurb: "Image understanding for moderation, OCR, captioning.", recommended: true },
-  { id: "mail", name: "Resend", category: "Email", icon: Mail, blurb: "Transactional email with deliverability built-in." },
-  { id: "storage", name: "Storage", category: "Files", icon: HardDrive, blurb: "Object storage with signed URLs and CDN." },
-  { id: "vercel", name: "Vercel", category: "Deploy", icon: Rocket, blurb: "Edge deploys, previews and analytics.", installed: true },
-  { id: "domains", name: "Domains", category: "DNS", icon: Globe2, blurb: "Register, link and certify domains." },
-  { id: "agent", name: "Operator Bots", category: "AI", icon: Bot, blurb: "Custom B-personalities for specific workflows." },
-  { id: "audit", name: "Audit Vault", category: "Security", icon: ShieldCheck, blurb: "Tamper-evident logs and SOC2 reports." },
+const moduleOrder: { id: ModuleKey; icon: LucideIcon; installed?: boolean; recommended?: boolean }[] = [
+  { id: "clerk", icon: KeyRound, installed: true, recommended: true },
+  { id: "stripe", icon: CreditCard, installed: true, recommended: true },
+  { id: "twilio", icon: Phone },
+  { id: "maps", icon: MapPin },
+  { id: "neon", icon: Database, installed: true },
+  { id: "vision", icon: Eye, recommended: true },
+  { id: "mail", icon: Mail },
+  { id: "storage", icon: HardDrive },
+  { id: "vercel", icon: Rocket, installed: true },
+  { id: "domains", icon: Globe2 },
+  { id: "agent", icon: Bot },
+  { id: "audit", icon: ShieldCheck },
 ];
 
-const categories = ["All", "Auth", "Payments", "Messaging", "Maps", "Database", "AI", "Email", "Files", "Deploy", "DNS", "Security"];
-
 export function MarketplaceGrid({ context }: { context?: "workspace" | "marketing" }) {
+  const t = useT();
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState("All");
+  const [cat, setCat] = useState<string>(t.marketplace.categories[0]);
 
-  const list = all.filter(
+  const items = moduleOrder.map((m) => ({
+    ...m,
+    name: t.marketplace.modules[m.id].name,
+    category: t.marketplace.modules[m.id].category,
+    blurb: t.marketplace.modules[m.id].blurb,
+  }));
+
+  const all = t.marketplace.categories[0];
+  const list = items.filter(
     (m) =>
-      (cat === "All" || m.category === cat) &&
+      (cat === all || m.category === cat) &&
       (q === "" || m.name.toLowerCase().includes(q.toLowerCase()) || m.blurb.toLowerCase().includes(q.toLowerCase()))
   );
 
@@ -66,19 +65,19 @@ export function MarketplaceGrid({ context }: { context?: "workspace" | "marketin
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search modules…"
+            placeholder={t.marketplace.search_placeholder}
             className="input-base pl-9"
           />
         </div>
         <div className="flex flex-wrap gap-1.5">
-          {categories.map((c) => (
+          {t.marketplace.categories.map((c) => (
             <button
               key={c}
               onClick={() => setCat(c)}
               className={`rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition ${
                 cat === c
-                  ? "border-violet-400/50 bg-violet-500/15 text-violet-100"
-                  : "border-white/5 text-on-surface-variant hover:border-white/15"
+                  ? "border-violet-400/50 bg-violet-500/15 text-violet-300"
+                  : "border-app text-on-surface-variant hover:border-app-strong"
               }`}
             >
               {c}
@@ -92,7 +91,7 @@ export function MarketplaceGrid({ context }: { context?: "workspace" | "marketin
           <motion.article
             key={m.id}
             layout
-            className="group relative overflow-hidden rounded-xl border border-white/5 bg-white/[0.02] p-5 transition hover:border-violet-500/30 hover:bg-white/[0.04]"
+            className="group relative overflow-hidden rounded-xl border border-app bg-tint-1 p-5 transition hover:border-violet-500/30 hover:bg-tint-2"
           >
             <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-violet-cyan opacity-0 blur-3xl transition group-hover:opacity-15" />
             <div className="flex items-start justify-between">
@@ -106,18 +105,18 @@ export function MarketplaceGrid({ context }: { context?: "workspace" | "marketin
                 </div>
               </div>
               {m.recommended && (
-                <span className="chip text-cyber-cyan"><Sparkles size={10} /> B picks</span>
+                <span className="chip text-cyber-cyan"><Sparkles size={10} /> {t.common.label_b_picks}</span>
               )}
             </div>
             <p className="mt-3 text-sm text-on-surface-variant">{m.blurb}</p>
             <div className="mt-5 flex items-center justify-between">
               {m.installed ? (
-                <span className="chip text-success-emerald">● installed</span>
+                <span className="chip text-success-emerald">● {t.common.status_installed}</span>
               ) : (
-                <span className="chip">● available</span>
+                <span className="chip">● {t.common.status_available}</span>
               )}
               <button className={m.installed ? "btn-ghost !px-3 !py-1.5 text-[10px]" : "btn-primary !px-3 !py-1.5 text-[10px]"}>
-                {m.installed ? "Configure" : "Install"}
+                {m.installed ? t.common.cta_configure : t.common.cta_install}
               </button>
             </div>
           </motion.article>
@@ -125,11 +124,8 @@ export function MarketplaceGrid({ context }: { context?: "workspace" | "marketin
       </div>
       {context === "workspace" && (
         <div className="mx-5 mb-10 rounded-xl border border-cyan-400/20 bg-cyan-400/[0.04] p-5 md:mx-8">
-          <p className="label-caps mb-2 text-cyber-cyan">Ask B</p>
-          <p className="text-on-surface">
-            “I need payments.” “I need authentication.” “I need maps.” — B picks and installs the right
-            module for your project, configures it, and exposes the APIs you need.
-          </p>
+          <p className="label-caps mb-2 text-cyber-cyan">{t.marketplace.ask_b_title}</p>
+          <p className="text-on-surface">{t.marketplace.ask_b_body}</p>
         </div>
       )}
     </div>

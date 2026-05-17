@@ -14,14 +14,16 @@ import {
   Sparkles,
   Workflow,
 } from "lucide-react";
+import { useT } from "@/i18n/AppProviders";
 
 export function OperatorPreview() {
+  const t = useT();
   return (
     <div className="relative mx-auto w-full max-w-5xl">
       <div className="absolute -inset-8 -z-10 bg-violet-cyan opacity-20 blur-[80px]" />
       <div className="glass-strong overflow-hidden rounded-2xl shadow-elev">
         {/* Window chrome */}
-        <div className="flex items-center justify-between border-b border-white/5 px-5 py-3">
+        <div className="flex items-center justify-between border-b border-app px-5 py-3">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-error-crimson/70" />
             <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
@@ -31,22 +33,22 @@ export function OperatorPreview() {
             vforge://workspace/orion
           </div>
           <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-cyber-cyan">
-            ● live
+            ● {t.common.status_live}
           </div>
         </div>
 
         <div className="grid grid-cols-12 gap-0">
           {/* Sidebar */}
-          <div className="col-span-3 hidden border-r border-white/5 bg-black/30 p-4 md:block">
-            <p className="label-caps mb-3 text-muted">Workspace</p>
+          <div className="col-span-3 hidden border-r border-app bg-tint-2 p-4 md:block">
+            <p className="label-caps mb-3 text-muted">{t.workspace.workspace_label}</p>
             {[
-              { icon: Sparkles, label: "Chat with B", active: true },
-              { icon: GitBranch, label: "RepoVision" },
-              { icon: Activity, label: "Deployments" },
-              { icon: Layers, label: "Marketplace" },
-              { icon: ShieldCheck, label: "Secrets Vault" },
+              { icon: Sparkles, label: t.workspace.nav.chat, active: true },
+              { icon: GitBranch, label: t.workspace.nav.repovision },
+              { icon: Activity, label: t.workspace.nav.deployments },
+              { icon: Layers, label: t.workspace.nav.marketplace },
+              { icon: ShieldCheck, label: t.workspace.nav.secrets },
               { icon: Globe2, label: "Domains" },
-              { icon: Workflow, label: "Projects" },
+              { icon: Workflow, label: t.workspace.nav.projects },
             ].map((i) => (
               <div
                 key={i.label}
@@ -64,51 +66,48 @@ export function OperatorPreview() {
 
           {/* Center conversation */}
           <div className="col-span-12 md:col-span-6 p-5 md:p-7">
-            <p className="label-caps mb-4 text-muted">B · Operator</p>
-            <Bubble role="user">I want to launch a SaaS for small studios. Frontend, auth, payments and a map.</Bubble>
+            <p className="label-caps mb-4 text-muted">{t.common.label_b} · {t.common.label_operator}</p>
+            <Bubble role="user">{t.chat.quick_prompts[0]}</Bubble>
             <Bubble role="b" delay={0.2}>
-              On it. Spinning up:
+              {t.chat.b_response_text}
               <ul className="mt-3 space-y-1.5 text-[13px]">
-                <li className="flex items-center gap-2 text-on-surface">
-                  <CheckCircle2 size={14} className="text-success-emerald" />
-                  Next.js + Tailwind frontend
-                </li>
-                <li className="flex items-center gap-2 text-on-surface">
-                  <CheckCircle2 size={14} className="text-success-emerald" />
-                  Clerk authentication
-                </li>
-                <li className="flex items-center gap-2 text-on-surface">
-                  <CircleDot size={14} className="animate-pulse text-cyber-cyan" />
-                  Stripe payments — configuring
-                </li>
-                <li className="flex items-center gap-2 text-on-surface-variant">
-                  <CircleDot size={14} className="text-muted" />
-                  Google Maps integration — queued
-                </li>
+                {t.chat.b_response_actions.map((label, idx) => (
+                  <li key={label} className="flex items-center gap-2 text-on-surface">
+                    {idx === 0 ? (
+                      <CheckCircle2 size={14} className="text-success-emerald" />
+                    ) : idx === 1 ? (
+                      <CheckCircle2 size={14} className="text-success-emerald" />
+                    ) : idx === 2 ? (
+                      <CircleDot size={14} className="animate-pulse text-cyber-cyan" />
+                    ) : (
+                      <CircleDot size={14} className="text-muted" />
+                    )}
+                    <span className={idx >= 3 ? "text-on-surface-variant" : ""}>{label}</span>
+                  </li>
+                ))}
               </ul>
             </Bubble>
 
-            <div className="mt-5 rounded-lg border border-white/10 bg-black/40 p-3">
+            <div className="mt-5 rounded-lg border border-app-strong bg-tint-2 p-3">
               <div className="font-mono text-[12px] text-on-surface-variant">
-                <span className="text-cyber-cyan">›</span> connect github · deploy to vercel · open
-                domain panel...
+                <span className="text-cyber-cyan">›</span> {t.chat.placeholder}
               </div>
             </div>
           </div>
 
           {/* Right ops */}
-          <div className="col-span-12 border-t border-white/5 p-5 md:col-span-3 md:border-l md:border-t-0 md:p-6">
-            <p className="label-caps mb-4 text-muted">Live Operations</p>
-            <Stat label="Deploys" value="2/2" hint="Production" />
-            <Stat label="Build" value="42s" hint="Vercel · iad1" tone="cyan" />
-            <Stat label="Integrations" value="6" hint="Healthy" tone="violet" />
-            <Stat label="Secrets" value="14" hint="Encrypted" />
+          <div className="col-span-12 border-t border-app p-5 md:col-span-3 md:border-l md:border-t-0 md:p-6">
+            <p className="label-caps mb-4 text-muted">{t.chat.ops.title}</p>
+            <Stat label={t.chat.ops.deploys} value="2/2" hint="Production" />
+            <Stat label={t.chat.ops.build} value="42s" hint="Vercel · iad1" tone="cyan" />
+            <Stat label={t.workspace.nav.integrations} value="6" hint={t.common.status_healthy} tone="violet" />
+            <Stat label={t.workspace.nav.secrets} value="14" hint="AES-256" />
 
-            <div className="mt-5 rounded-md border border-white/10 bg-black/30 p-3">
-              <p className="label-caps mb-2 text-muted">Recent</p>
-              <Activity_Item icon={GitBranch} label="repo · auth-service" tone="violet" />
-              <Activity_Item icon={Cpu} label="db · neon-prod migrated" tone="cyan" />
-              <Activity_Item icon={Globe2} label="domain · forge.app linked" tone="emerald" />
+            <div className="mt-5 rounded-md border border-app-strong bg-tint-2 p-3">
+              <p className="label-caps mb-2 text-muted">{t.chat.ops.recent}</p>
+              <ActivityItem icon={GitBranch} label={t.chat.ops.events[0]} tone="violet" />
+              <ActivityItem icon={Cpu} label={t.chat.ops.events[1]} tone="cyan" />
+              <ActivityItem icon={Globe2} label={t.chat.ops.events[2]} tone="emerald" />
             </div>
           </div>
         </div>
@@ -135,7 +134,7 @@ function Bubble({
       className={`mb-3 max-w-[90%] rounded-xl border px-4 py-3 text-[14px] leading-relaxed ${
         isB
           ? "ml-0 border-violet-500/20 bg-violet-500/[0.06] text-on-surface"
-          : "ml-auto border-white/10 bg-white/[0.03] text-on-surface-variant"
+          : "ml-auto border-app-strong bg-tint-1 text-on-surface-variant"
       }`}
     >
       {isB && (
@@ -166,7 +165,7 @@ function Stat({
       ? "bg-violet-400 shadow-[0_0_10px_rgba(139,92,246,0.6)]"
       : "bg-success-emerald shadow-[0_0_10px_rgba(16,185,129,0.5)]";
   return (
-    <div className="mb-3 flex items-center justify-between rounded-md border border-white/5 bg-white/[0.02] px-3 py-2.5">
+    <div className="mb-3 flex items-center justify-between rounded-md border border-app bg-tint-1 px-3 py-2.5">
       <div>
         <p className="label-caps text-muted">{label}</p>
         <p className="font-display text-lg font-semibold text-on-surface">{value}</p>
@@ -179,7 +178,7 @@ function Stat({
   );
 }
 
-function Activity_Item({
+function ActivityItem({
   icon: Icon,
   label,
   tone,

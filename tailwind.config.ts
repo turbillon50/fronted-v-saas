@@ -1,25 +1,37 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: ["./src/**/*.{ts,tsx,js,jsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        // Zenith Forge tokens
-        void: "#050505",
-        ink: "#0a0a0a",
-        background: "#0e0e0e",
-        surface: "#131313",
-        "surface-low": "#1a1a1a",
-        "surface-high": "#1f1f1f",
-        "surface-elev": "#262626",
-        border: "rgba(255,255,255,0.06)",
-        "border-strong": "rgba(255,255,255,0.12)",
+        // Semantic surfaces — react to data-theme via CSS variables
+        void: "var(--color-void)",
+        ink: "var(--color-ink)",
+        background: "var(--color-background)",
+        surface: "var(--color-surface)",
+        "surface-low": "var(--color-surface-low)",
+        "surface-high": "var(--color-surface-high)",
+        "surface-elev": "var(--color-surface-elev)",
 
-        // Accents
+        "on-surface": "var(--color-on-surface)",
+        "on-surface-variant": "var(--color-on-surface-variant)",
+        muted: "var(--color-muted)",
+        "off-white": "var(--color-off-white)",
+
+        // Accents — currentColor friendly via vars
+        "violet-300": "var(--color-violet-300)",
+        "violet-400": "var(--color-violet-400)",
+        "violet-500": "var(--color-violet-500)",
+        "cyan-400": "var(--color-cyan-400)",
+        "electric-blue": "var(--color-electric-blue)",
+        "cyber-cyan": "var(--color-cyan-400)",
+        "success-emerald": "var(--color-success-emerald)",
+        "error-crimson": "var(--color-error-crimson)",
+
+        // Static palettes (still useful for explicit tailwind shades elsewhere)
         violet: {
-          50: "#f4eeff",
           100: "#e9ddff",
           200: "#d0bcff",
           300: "#b497ff",
@@ -34,18 +46,10 @@ const config: Config = {
           400: "#22d3ee",
           500: "#06b6d4",
         },
-        "electric-blue": "#3b82f6",
-        "cyber-cyan": "#22d3ee",
-        "success-emerald": "#10b981",
-        "error-crimson": "#ef4444",
-        "off-white": "#f8fafc",
-        "on-surface": "#e5e2e1",
-        "on-surface-variant": "#a3a0ad",
-        muted: "#6b6975",
       },
       fontFamily: {
         sans: ["var(--font-hanken)", "Hanken Grotesk", "system-ui", "sans-serif"],
-        display: ["var(--font-geist)", "Geist", "system-ui", "sans-serif"],
+        display: ["var(--font-geist-sans)", "Geist", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "JetBrains Mono", "monospace"],
       },
       fontSize: {
@@ -77,18 +81,14 @@ const config: Config = {
       },
       backgroundImage: {
         "violet-cyan": "linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%)",
-        "violet-aura": "radial-gradient(120% 80% at 50% 0%, rgba(139,92,246,0.18), transparent 60%)",
-        "grid-fade":
-          "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
-      },
-      backgroundSize: {
-        grid: "48px 48px",
+        "violet-aura":
+          "radial-gradient(120% 80% at 50% 0%, rgba(139,92,246,calc(0.18 * var(--aura-opacity))), transparent 60%)",
       },
       boxShadow: {
         glow: "0 0 24px rgba(139,92,246,0.25), 0 0 60px rgba(34,211,238,0.10)",
         "glow-cyan": "0 0 24px rgba(34,211,238,0.25)",
         "glow-violet": "0 0 24px rgba(139,92,246,0.30)",
-        elev: "0 1px 0 rgba(255,255,255,0.04) inset, 0 24px 60px rgba(0,0,0,0.35)",
+        elev: "var(--shadow-elev)",
       },
       animation: {
         breathe: "breathe 4s ease-in-out infinite",

@@ -5,6 +5,8 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { ClerkShell } from "@/components/auth/ClerkShell";
 import { RegisterSW } from "@/components/pwa/RegisterSW";
+import { AppProviders } from "@/i18n/AppProviders";
+import { ThemeBootScript } from "@/components/ThemeBootScript";
 
 const hanken = Hanken_Grotesk({
   subsets: ["latin"],
@@ -21,9 +23,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "VForge" },
   icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
@@ -35,7 +35,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#050505" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -43,9 +46,19 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} ${hanken.variable} dark`}>
+    <html
+      lang="es"
+      data-theme="dark"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${hanken.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <ThemeBootScript />
+      </head>
       <body className="font-sans bg-void text-on-surface min-h-dvh scanlines">
-        <ClerkShell>{children}</ClerkShell>
+        <AppProviders>
+          <ClerkShell>{children}</ClerkShell>
+        </AppProviders>
         <RegisterSW />
       </body>
     </html>
