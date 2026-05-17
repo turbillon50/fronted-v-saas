@@ -117,8 +117,11 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
 
 function TopBar() {
   return (
-    <header className="sticky top-0 z-30 border-b border-app bg-void/80 backdrop-blur-xl">
-      <div className="flex items-center justify-between gap-3 px-4 py-3 md:px-8">
+    <header
+      className="sticky top-0 z-30 border-b border-app bg-void/85 backdrop-blur-xl"
+      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+    >
+      <div className="flex items-center justify-between gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:px-8">
         <div className="flex items-center gap-2 text-on-surface-variant md:hidden">
           <VMark size={20} />
           <span className="font-display text-sm font-semibold tracking-tight text-on-surface">VForge</span>
@@ -170,7 +173,10 @@ function MobileNav({ pathname }: { pathname: string }) {
     { href: "/app/activity", label: t.workspace.mobile_labels.alerts, icon: Bell },
   ];
   return (
-    <nav className="fixed inset-x-0 bottom-3 z-40 mx-auto flex max-w-[420px] items-center justify-between gap-1 rounded-2xl border border-app-strong bg-ink/95 px-2 py-1.5 shadow-elev backdrop-blur-xl md:hidden">
+    <nav
+      className="fixed inset-x-3 z-40 mx-auto flex max-w-[420px] items-center justify-between gap-1 rounded-2xl border border-app-strong bg-ink/95 px-2 py-1.5 shadow-elev backdrop-blur-xl md:hidden"
+      style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 12px)" }}
+    >
       {mobileNav.map((i) => {
         const active = pathname.startsWith(i.href);
         return (

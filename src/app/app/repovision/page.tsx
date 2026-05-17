@@ -25,8 +25,8 @@ export default function RepoVisionPage() {
       build: "ok",
       lastDeploy: "12m",
       commits: [
-        { msg: "feat: stripe checkout component", author: "B", time: "12m" },
-        { msg: "chore: bump @clerk/nextjs", author: "B", time: "1h" },
+        { msg: "feat: stripe checkout component", author: "V", time: "12m" },
+        { msg: "chore: bump @clerk/nextjs", author: "V", time: "1h" },
         { msg: "design: cinematic hero", author: "you", time: "3h" },
       ],
     },
@@ -38,8 +38,8 @@ export default function RepoVisionPage() {
       build: "running",
       lastDeploy: "4m",
       commits: [
-        { msg: "feat: bookings endpoint", author: "B", time: "4m" },
-        { msg: "db: bookings migration", author: "B", time: "5m" },
+        { msg: "feat: bookings endpoint", author: "V", time: "4m" },
+        { msg: "db: bookings migration", author: "V", time: "5m" },
       ],
     },
     {
@@ -49,7 +49,7 @@ export default function RepoVisionPage() {
       branch: "main",
       build: "ok",
       lastDeploy: "2h",
-      commits: [{ msg: "feat: nightly backup", author: "B", time: "2h" }],
+      commits: [{ msg: "feat: nightly backup", author: "V", time: "2h" }],
     },
   ];
 

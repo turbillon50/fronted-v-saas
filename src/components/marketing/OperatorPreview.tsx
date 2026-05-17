@@ -21,18 +21,18 @@ export function OperatorPreview() {
   return (
     <div className="relative mx-auto w-full max-w-5xl">
       <div className="absolute -inset-8 -z-10 bg-violet-cyan opacity-20 blur-[80px]" />
-      <div className="glass-strong overflow-hidden rounded-2xl shadow-elev">
+      <div className="glass-strong overflow-hidden rounded-xl shadow-elev sm:rounded-2xl">
         {/* Window chrome */}
-        <div className="flex items-center justify-between border-b border-app px-5 py-3">
-          <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-error-crimson/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-success-emerald/70" />
+        <div className="flex items-center justify-between gap-2 border-b border-app px-3 py-2.5 sm:px-5 sm:py-3">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="h-2 w-2 rounded-full bg-error-crimson/70 sm:h-2.5 sm:w-2.5" />
+            <span className="h-2 w-2 rounded-full bg-yellow-400/70 sm:h-2.5 sm:w-2.5" />
+            <span className="h-2 w-2 rounded-full bg-success-emerald/70 sm:h-2.5 sm:w-2.5" />
           </div>
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+          <div className="hidden truncate font-mono text-[10px] uppercase tracking-[0.14em] text-muted sm:block sm:text-[11px] sm:tracking-[0.18em]">
             vforge://workspace/orion
           </div>
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-cyber-cyan">
+          <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-cyber-cyan sm:text-[11px] sm:tracking-[0.18em]">
             ● {t.common.status_live}
           </div>
         </div>
@@ -65,7 +65,7 @@ export function OperatorPreview() {
           </div>
 
           {/* Center conversation */}
-          <div className="col-span-12 md:col-span-6 p-5 md:p-7">
+          <div className="col-span-12 p-4 sm:p-5 md:col-span-6 md:p-7">
             <p className="label-caps mb-4 text-muted">{t.common.label_b} · {t.common.label_operator}</p>
             <Bubble role="user">{t.chat.quick_prompts[0]}</Bubble>
             <Bubble role="b" delay={0.2}>
@@ -96,7 +96,7 @@ export function OperatorPreview() {
           </div>
 
           {/* Right ops */}
-          <div className="col-span-12 border-t border-app p-5 md:col-span-3 md:border-l md:border-t-0 md:p-6">
+          <div className="col-span-12 border-t border-app p-4 sm:p-5 md:col-span-3 md:border-l md:border-t-0 md:p-6">
             <p className="label-caps mb-4 text-muted">{t.chat.ops.title}</p>
             <Stat label={t.chat.ops.deploys} value="2/2" hint="Production" />
             <Stat label={t.chat.ops.build} value="42s" hint="Vercel · iad1" tone="cyan" />
@@ -139,7 +139,7 @@ function Bubble({
     >
       {isB && (
         <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-violet-300">
-          B
+          V
         </p>
       )}
       {children}

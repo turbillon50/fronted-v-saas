@@ -22,10 +22,6 @@ export const metadata: Metadata = {
   applicationName: "VForge",
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "VForge" },
-  icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: "/apple-touch-icon.png",
-  },
   openGraph: {
     title: "VForge — Operate products through conversation",
     description:

@@ -75,7 +75,7 @@ export function ChatExperience() {
   }));
 
   return (
-    <div className="grid h-[calc(100dvh-49px)] grid-cols-1 lg:grid-cols-[1fr_320px]">
+    <div className="grid min-h-[calc(100dvh-49px)] grid-cols-1 lg:h-[calc(100dvh-49px)] lg:grid-cols-[1fr_320px]">
       <div className="flex min-w-0 flex-col">
         <div ref={scrollerRef} className="flex-1 overflow-y-auto px-4 py-8 md:px-10">
           <div className="mx-auto max-w-3xl">
@@ -112,7 +112,7 @@ export function ChatExperience() {
           </div>
         </div>
 
-        <div className="border-t border-app bg-void/80 px-4 py-4 backdrop-blur-xl md:px-10">
+        <div className="sticky bottom-0 border-t border-app bg-void/90 px-3 pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+88px)] backdrop-blur-xl sm:px-4 sm:pt-4 md:px-10 md:pb-4">
           <div className="mx-auto max-w-3xl">
             <div className="mb-3 flex flex-wrap gap-2">
               {quickPrompts.map((q) => (
@@ -182,7 +182,7 @@ function MessageBubble({ msg }: { msg: Msg }) {
       className={`max-w-[88%] ${isB ? "mr-auto" : "ml-auto"}`}
     >
       {isB && (
-        <p className="mb-1 ml-1 font-mono text-[10px] uppercase tracking-[0.2em] text-violet-300">B</p>
+        <p className="mb-1 ml-1 font-mono text-[10px] uppercase tracking-[0.2em] text-violet-300">V</p>
       )}
       <div
         className={`rounded-2xl border px-4 py-3 text-[14.5px] leading-relaxed ${

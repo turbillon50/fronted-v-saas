@@ -19,8 +19,11 @@ export function MarketingHeader() {
     { href: "/pricing", label: t.common.nav_pricing },
   ];
   return (
-    <header className="sticky top-0 z-40 border-b border-app bg-void/70 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-container items-center justify-between px-5 md:px-margin-desktop">
+    <header
+      className="sticky top-0 z-40 border-b border-app bg-void/85 backdrop-blur-xl"
+      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+    >
+      <div className="mx-auto flex h-14 max-w-container items-center justify-between px-4 sm:h-16 sm:px-5 md:px-margin-desktop">
         <Link href="/" aria-label="VForge home" className="flex items-center gap-2">
           <VWordmark />
         </Link>
